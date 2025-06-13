@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="CapturaPokemon.View.BattleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:CapturaPokemon.Service"
+             xmlns:vm="clr-namespace:CapturaPokemon.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=vm:BattleViewModel}"
+             mc:Ignorable="d"
+             Background="#121212" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <!-- Imagen del Pokémon -->
+        <Image Source="{Binding Pokemon.ImagePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Top" 
+               Margin="100,50,100,120"/>
+
+        <!-- Nombre del Pokémon -->
+        <Label Content="{Binding Pokemon.PokemonName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Top" 
+               FontSize="20" 
+               FontWeight="Bold" 
+               Foreground="Orange" Height="45" Width="440"/>
+
+        <!-- Contenedor con StackPanel para los botones y barra de progreso -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
+
+            <!-- Contenedor de los botones -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
+                <Button Command="{Binding Attack_ClickCommand}" 
+                FontSize="20" 
+                Content="Attack" 
+                Height="50" 
+                Width="150" 
+                Foreground="White" 
+                Background="#ff4c4c" 
+                BorderBrush="White" 
+                BorderThickness="2" 
+                FontWeight="Bold" 
+                Padding="10"/>
+
+                <Button Command="{Binding CapturaCommand}"  
+                FontSize="20" 
+                Content="Capturar" 
+                Height="50" 
+                Width="150" 
+                Foreground="White" 
+                Background="#4CAF50" 
+                BorderBrush="White" 
+                BorderThickness="2" 
+                FontWeight="Bold" 
+                Padding="10"/>
+
+                <Button Command="{Binding Huir_ClickCommand}" 
+                FontSize="20" 
+                Content="Huir" 
+                Height="50" 
+                Width="150" 
+                Foreground="White" 
+                Background="#ff9800" 
+                BorderBrush="White" 
+                BorderThickness="2" 
+                FontWeight="Bold" 
+                Padding="10"/>
+            </StackPanel>
+
+            <!-- Barra de progreso -->
+            <Grid Width="440" Height="20" Margin="20,10,20,0">
+                <!-- Barra de Progreso -->
+                <ProgressBar Foreground="#4CAF50" 
+                     Background="Orange" 
+                     BorderBrush="White" 
+                     BorderThickness="1"
+                     Minimum="0"
+                     Maximum="{Binding VidaUsuario}" 
+                     Value="{Binding VidaActual}" />
+
+                <!-- Texto del porcentaje -->
+                <TextBlock Text="{Binding VidaPorcentaje}" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   FontSize="14" 
+                   Foreground="Black" />
+            </Grid>
+        </StackPanel>
+
+        <!-- Estadísticas de ataque -->
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,100,0,0">
+            <Label Content="{Binding Pokemon.PokeAtaque, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                   FontSize="35" 
+                   HorizontalAlignment="Center" 
+                   Foreground="White" 
+                   FontWeight="Bold"/>
+            <Label Content="Attack" 
+                   FontSize="25" 
+                   HorizontalAlignment="Center" 
+                   Foreground="Orange" 
+                   FontWeight="Bold"/>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,10,0">
+            <!-- Barra de progreso -->
+            <Grid Width="150" Height="50">
+                <!-- Barra de Progreso -->
+                <ProgressBar Foreground="#4CAF50" 
+                     Background="Orange" 
+                     BorderBrush="White" 
+                     BorderThickness="1"
+                     Height="20"
+                     Minimum="0"
+                     Maximum="{Binding VidaMaximaPokemon}" 
+                     Value="{Binding VidaActualPokemon}" 
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Center"/>
+
+                <!-- Texto del porcentaje -->
+                <TextBlock Text="{Binding VidaPorcentajePokemon}" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   FontSize="14" 
+                   Foreground="Black" />
+            </Grid>
+
+            <!-- Texto de "HP" -->
+            <Label Content="HP" 
+           FontSize="25" 
+           HorizontalAlignment="Center"
+           Foreground="GreenYellow" 
+           FontWeight="Bold"/>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>
+
+
