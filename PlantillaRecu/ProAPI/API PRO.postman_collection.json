@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "1391e2ac-02a4-4789-a5b2-b84a8869185f",
+		"name": "API PRO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19289059"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Bimba Joga\",\r\n  \"userName\": \"Bimba_Joga\",\r\n  \"email\": \"random@gmail.jpg\",\r\n  \"password\": \"u76x&s~:vtDVX*[4%#\",\r\n  \"role\": \"Admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}users/register",
+							"host": [
+								"{{API_URL}}users"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Bimba_Joga\",\r\n    \"password\": \"u76x&s~:vtDVX*[4%#\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}users/login",
+							"host": [
+								"{{API_URL}}users"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request",
+			"item": [
+				{
+					"name": "Libros",
+					"item": [
+						{
+							"name": "Obtener Libros",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL}}Libro",
+									"host": [
+										"{{API_URL}}Libro"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear Libro",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\": \"Mitankityko\",\r\n    \"Paginas\": 1000,\r\n    \"isbn\": \"PUTIN_32\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}Libro",
+									"host": [
+										"{{API_URL}}Libro"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkJpbWJhX0pvZ2EiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MzYzNTMzMzgsImV4cCI6MTczNjk1ODEzOCwiaWF0IjoxNzM2MzUzMzM4fQ.tNJLlPmxiJGlPaYfCLWTwVt5zLbYqdj7oXjf-GcKvd0",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Houses",
+					"item": [
+						{
+							"name": "Obtener houses",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL}}House",
+									"host": [
+										"{{API_URL}}House"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create House 1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Acme Fresh Start Housing\",\r\n    \"city\": \"Chicago\",\r\n    \"state\": \"IL\",\r\n    \"photo\": \"https://angular.dev/assets/images/tutorials/common/bernard-hermant-CLKGGwIBTaY-unsplash.jpg\",\r\n    \"availableUnits\": 4,\r\n    \"wifi\": true,\r\n    \"laundry\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}House",
+									"host": [
+										"{{API_URL}}House"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create House 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Homesteady Housing\",\r\n    \"city\": \"Chicago\",\r\n    \"state\": \"IL\",\r\n    \"photo\": \"https://angular.dev/assets/images/tutorials/common/ian-macdonald-W8z6aiwfi1E-unsplash.jpg\",\r\n    \"availableUnits\": 2,\r\n    \"wifi\": true,\r\n    \"laundry\": false\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}House",
+									"host": [
+										"{{API_URL}}House"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create House 3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Warm Beds Housing Support\",\r\n    \"city\": \"Juneau\",\r\n    \"state\": \"AK\",\r\n    \"photo\": \"https://angular.dev/assets/images/tutorials/common/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg\",\r\n    \"availableUnits\": 1,\r\n    \"wifi\": false,\r\n    \"laundry\": false\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}House",
+									"host": [
+										"{{API_URL}}House"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkJpbWJhX0pvZ2EiLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3NDAyNTIwNTksImV4cCI6MTc0MDI1MjQ3OSwiaWF0IjoxNzQwMjUyMDU5fQ.WYJuH2ANDALHOAK1H0iQ-UTerlRaT_OqHfyrEDm4sRw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

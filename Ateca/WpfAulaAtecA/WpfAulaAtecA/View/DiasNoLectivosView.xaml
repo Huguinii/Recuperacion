@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="WpfAulaAtecA.View.DiasNoLectivosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewmodel="clr-namespace:WpfAulaAtecA.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewmodel:DiasNoLectivosViewModel}"
+             mc:Ignorable="d"
+             Background="White"
+             d:DesignHeight="600" d:DesignWidth="800">
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Formulario para añadir -->
+        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,20">
+            <DatePicker SelectedDate="{Binding Fecha}" Width="200" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding Motivo}" Width="300" Margin="0,0,0,10" />
+            <Button Content="Añadir"
+                    Width="100"
+                    Command="{Binding AddCommand}"
+                    HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <!-- Lista de días no lectivos -->
+        <ListBox Grid.Row="1"
+                 Margin="0,20,0,0"
+                 ItemsSource="{Binding DiasNoLectivos}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Fecha, StringFormat={}{0:dd/MM/yyyy}}" Width="150" Margin="0,0,10,0"/>
+                        <TextBlock Text="{Binding Motivo}" Width="400" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

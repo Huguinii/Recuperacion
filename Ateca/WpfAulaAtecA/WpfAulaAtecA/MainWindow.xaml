@@ -1,0 +1,45 @@
+﻿<Window x:Class="WpfAulaAtecA.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:local="clr-namespace:WpfAulaAtecA.Converters"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:view="clr-namespace:WpfAulaAtecA.View"
+        xmlns:viewmodel="clr-namespace:WpfAulaAtecA.ViewModel"
+        
+        Title="Administración Aula AtecA" Height="450" Width="800">
+    <Window.Resources>
+        <!-- Asociación de ViewModels con UserControls -->
+        <DataTemplate DataType="{x:Type viewmodel:ReservasPendientesViewModel}">
+            <view:ReservasPendientesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:FranjasHorariasViewModel}">
+            <view:FranjasHorariasView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:DiasNoLectivosViewModel}">
+            <view:DiasNoLectivosView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:LoginViewModel}">
+            <view:LoginView />
+        </DataTemplate>
+        <local:LoginViewToVisibilityConverter x:Key="LoginViewToVisibility"/>
+    </Window.Resources>
+
+    <DockPanel>
+        <!-- Menú lateral -->
+        <StackPanel DockPanel.Dock="Left" Width="200" Background="#EEEEEE"
+            Visibility="{Binding SelectedViewModel, Converter={StaticResource LoginViewToVisibility}}">
+            <Button Content="Reservas Pendientes" Margin="10"
+            Command="{Binding SelectViewModelCommand}"
+            CommandParameter="{Binding ReservasPendientesViewModel}" />
+            <Button Content="Franjas Horarias" Margin="10"
+            Command="{Binding SelectViewModelCommand}"
+            CommandParameter="{Binding FranjasHorariasViewModel}" />
+            <Button Content="Días No Lectivos" Margin="10"
+            Command="{Binding SelectViewModelCommand}"
+            CommandParameter="{Binding DiasNoLectivosViewModel}" />
+        </StackPanel>
+
+
+        <!-- Vista dinámica -->
+        <ContentControl Content="{Binding SelectedViewModel}" />
+    </DockPanel>
+</Window>

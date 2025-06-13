@@ -1,0 +1,49 @@
+﻿<Window x:Class="Examen_Galaxy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:Examen_Galaxy.View"
+        xmlns:viewmodel="clr-namespace:Examen_Galaxy.ViewModel" 
+        xmlns:local="clr-namespace:Examen_Galaxy"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="800"
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}">
+
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodel:GalaxyOverviewViewModel}">
+            <view:GalaxyOverview/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:ImportViewModel}">
+            <view:ImportView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:ExportViewModel}">
+            <view:ExportView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:GalaxyGridViewModel}">
+            <view:GalaxyGridView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="Black">
+            <Menu IsEnabled="{Binding IsMenuEnabled}" Background="Black" Foreground="White"  
+      FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
+                <MenuItem Header="_GalaxyOver" Command="{Binding SelectViewModelCommand}" CommandParameter="{Binding GalaxyOverviewViewModel}"/>
+                <MenuItem Header="_GalaxyGrid" Command="{Binding SelectViewModelCommand}" CommandParameter="{Binding GalaxyGridViewModel}"/>
+                <MenuItem Header="_Import" Command="{Binding SelectViewModelCommand}" CommandParameter="{Binding ImportViewModel}"/>
+                <MenuItem Header="_Export" Command="{Binding SelectViewModelCommand}" CommandParameter="{Binding ExportViewModel}"/>
+            </Menu>
+        </Grid>
+
+        <ContentControl  Grid.Row="1" Content="{Binding SelectedViewModel}"/>
+
+    </Grid>
+</Window>

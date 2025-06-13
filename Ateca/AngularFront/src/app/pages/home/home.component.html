@@ -1,0 +1,41 @@
+<div class="container">
+  <h1>Reservas Aula AtecA</h1>
+
+  <div *ngIf="mensajeGeneral()" class="error"> {{ mensajeGeneral() }} </div>
+  
+  <div *ngIf="mensajeDetalle()" class="detalle-error"> {{ mensajeDetalle() }} </div>
+
+
+  <form (ngSubmit)="crearReserva()" class="formulario">
+    <label>
+      Fecha:
+        <input type="date" [value]="nuevaReserva().fecha" (input)="updateCampo('fecha', $any($event.target).value)">
+    </label>
+    <label>
+      Hora inicio:
+      <input type="time" [value]="nuevaReserva().horaInicio" (input)="updateCampo('horaInicio', $any($event.target).value)">
+      
+    </label>
+    <label>
+      Hora fin:
+      <input type="time" [value]="nuevaReserva().horaFin" (input)="updateCampo('horaFin', $any($event.target).value)">
+    </label>
+    <label>
+      Grupo:
+      <input type="text" [value]="nuevaReserva().grupo" (input)="updateCampo('grupo', $any($event.target).value)">
+    </label>
+    <label>
+      Profesor:
+        <input type="text" [value]="nuevaReserva().nombreProfesor" (input)="updateCampo('nombreProfesor', $any($event.target).value)">
+    </label>
+    <button type="submit">➕ Crear Reserva</button>
+  </form>
+
+  <h2>Reservas existentes</h2>
+  <ul>
+    <li *ngFor="let reserva of reservas()">
+      📅 {{ reserva.fecha }} - 🕑 {{ reserva.horaInicio }} a {{ reserva.horaFin }} - 👨‍🏫 {{ reserva.nombreProfesor }} ({{ reserva.grupo }})
+      <button (click)="eliminarReserva(reserva.id)">Eliminar</button>
+    </li>
+  </ul>
+</div>
