@@ -1,18 +1,17 @@
-﻿using LoginRegister.ViewModel;
-using LoginRegister.Service;
+﻿using LoginRegister.View;
+using LoginRegister.ViewModel;
 using LoginRegister.Interface;
-using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
 using LoginRegister.Services;
 using LoginRegister.Models;
-using LoginRegister.View;
-
+using LoginRegister.Helpers;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Net.Http;
+using System.Windows;
+using LoginRegister.Service;
 
 namespace LoginRegister
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public App()
@@ -20,13 +19,6 @@ namespace LoginRegister
             Services = ConfigureServices();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-
-            var mainWindow = Current.Services.GetService<MainWindow>();
-            mainWindow?.Show();
-        }
         public new static App Current => (App)Application.Current;
         public IServiceProvider Services { get; }
 
@@ -34,32 +26,47 @@ namespace LoginRegister
         {
             var services = new ServiceCollection();
 
-            //view principal
-            services.AddSingleton<MainWindow>();
-            services.AddSingleton<AddDicatadorView>();
+            // 1) Un único HttpClient con BaseAddress
+            services.AddSingleton(new HttpClient { BaseAddress = new Uri(Constants.BASE_URL) });
 
+            // 2) Servicio genérico que recibirá ese HttpClient
+            services.AddTransient(typeof(IHttpJsonProvider<>), typeof(HttpJsonService<>));
 
-            //view viewModels
+            // 3) DTOs y servicios
+            services.AddSingleton<LoginDTO>();
+            services.AddSingleton<UserRegistroDTO>();
+            services.AddSingleton<IJuegoServiceToApi, DicatadorServiceToApi>();
+            services.AddSingleton<IStringUtils, StringUtils>();
+            services.AddSingleton(typeof(IFileService<>), typeof(FileService<>));
+
+            // 4) ViewModels
             services.AddSingleton<MainViewModel>();
             services.AddTransient<DashboardViewModel>();
             services.AddTransient<LoginViewModel>();
-            services.AddSingleton<AddDicatadorViewModel>();
             services.AddTransient<RegistroViewModel>();
-            services.AddTransient<DetallesViewModel>();
+            services.AddTransient<AddDicatadorViewModel>();
             services.AddTransient<InformacionViewModel>();
-            services.AddTransient<ViewModelBase>();
-      
+            services.AddTransient<DetallesViewModel>();
 
+            // 5) Views
+            services.AddSingleton<MainWindow>();
+            services.AddTransient<AddDicatadorView>();
+            services.AddTransient<DashboardView>();
+            services.AddTransient<LoginView>();
+            services.AddTransient<RegistroView>();
+            services.AddTransient<CartasView>();
+            services.AddTransient<TablaView>();
+            services.AddTransient<FormuView>();
+            services.AddTransient<InformacionView>();
+            services.AddTransient<DetallesView>();
 
-            //Services
-            services.AddSingleton<LoginDTO>();   
-            services.AddSingleton<IJuegoServiceToApi, DicatadorServiceToApi>();
-            services.AddSingleton<IStringUtils, StringUtils>();
-            services.AddSingleton(typeof(IHttpJsonProvider<>), typeof(HttpJsonService<>));
-            services.AddSingleton(typeof(IFileService<>), typeof(FileService<>));
             return services.BuildServiceProvider();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            Services.GetRequiredService<MainWindow>().Show();
         }
     }
 }
-
-
