@@ -1,0 +1,24 @@
+<h2>Lista de Usuarios</h2>
+
+<p *ngIf="usuarios().length === 0">No hay usuarios disponibles.</p>
+
+<table *ngIf="usuarios().length > 0" border="1">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Edad</th>
+      <th>Correo</th>
+      <th>Rol</th>
+      <th>Activo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usuario of usuarios()">
+      <td>{{ usuario.nombre }}</td>
+      <td>{{ usuario.edad }}</td>
+      <td>{{ usuario.correo }}</td>
+      <td>{{ usuario.rol || 'Sin rol' }}</td>
+      <td>{{ usuario.activo ? 'Sí' : 'No' }}</td>
+    </tr>
+  </tbody>
+</table>
